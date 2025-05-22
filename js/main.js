@@ -17,22 +17,19 @@ function showAttendeeForm() {
 function saveToCSV(data) {
     // Get current date for the filename
     const now = new Date();
-    const date = now.toISOString().split('T')[0];
-    
-    // Create row content
+    const date = now.toISOString().split('T')[0];    // Create row content with correct order matching headers
     const row = [
-        now.toLocaleDateString(),
-        now.toLocaleTimeString(),
-        data.className,
-        data.fullName,        data.companyName,
-        data.email,
-        data.phone,
-        data.futureInterest ? 'Yes' : 'No'
-    ].join(',');
-
-    // Get existing data from localStorage
+        `"${now.toLocaleDateString()}"`,
+        `"${now.toLocaleTimeString()}"`,
+        `"${data.className}"`,
+        `"${data.fullName}"`,
+        `"${data.companyName}"`,
+        `"${data.email}"`,
+        `"${data.phone}"`,
+        `"${data.futureInterest ? 'Yes' : 'No'}"`
+    ].join(',');// Get existing data from localStorage
     let existingData = localStorage.getItem(`checkins_${currentClassName}`);
-    const headers = ['Date', 'Time', 'Class Name', 'Full Name', 'Company Name', 'Email', 'Phone', 'Interested in Future Classes'].join(',');
+    const headers = ['"Date"', '"Time"', '"Class Name"', '"Full Name"', '"Company Name"', '"Email"', '"Phone"', '"Interested in Future Classes"'].join(',');
     
     // If no existing data, create new with headers
     if (!existingData) {
@@ -62,17 +59,17 @@ function saveToCSV(data) {
 // Add event listener when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('checkInForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Collect form data
-        const formData = {
-            className: currentClassName,
-            fullName: document.getElementById('fullName').value,
-            companyName: document.getElementById('companyName').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            futureInterest: document.getElementById('futureInterest').checked
-        };
+            e.preventDefault();
+            
+            // Collect form data in the correct order to match headers
+            const formData = {
+                className: currentClassName,
+                fullName: document.getElementById('fullName').value,
+                companyName: document.getElementById('companyName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                futureInterest: document.getElementById('futureInterest').checked
+            };
 
         // Save the data
         saveToCSV(formData);
