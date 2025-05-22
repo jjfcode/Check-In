@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Check-In System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Class Check-In System</h1>
+        
+        <!-- Class Name Section -->
+        <div id="classNameSection">
+            <div class="form-group">
+                <label for="className">Enter Class Name:</label>
+                <input type="text" id="className" name="className" required>
+                <button type="button" onclick="showAttendeeForm()">Continue</button>
+            </div>
+        </div>
+
+        <!-- Display Class Name -->
+        <div id="displayClassName" style="display: none;">
+            <h2 id="currentClassName"></h2>
+        </div>
+
+        <!-- Attendee Form -->
+        <form id="checkInForm" style="display: none;">
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" name="companyName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number (optional):</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+
+            <div class="form-group checkbox">
+                <input type="checkbox" id="futureInterest" name="futureInterest">
+                <label for="futureInterest">I am interested in future classes</label>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function showAttendeeForm() {
+            const className = document.getElementById('className').value.trim();
+            if (!className) {
+                alert('Please enter a class name');
+                return;
+            }
+
+            // Show class name and attendee form
+            document.getElementById('classNameSection').style.display = 'none';
+            document.getElementById('displayClassName').style.display = 'block';
+            document.getElementById('currentClassName').textContent = `Current Class: ${className}`;
+            document.getElementById('checkInForm').style.display = 'block';
+        }
+
+        document.getElementById('checkInForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Form submission logic will go here
+            alert('Form submitted successfully!');
+        });
+    </script>
+</body>
+</html>
